@@ -60,7 +60,6 @@ Page {
             color: palette.secondaryColor
         }
 
-
         Rectangle {
             width: parent.width
             height: Theme.itemSizeLarge / 4.0
@@ -76,7 +75,6 @@ Page {
             }
         }
 
-
         PasswordFieldCustom {
             id: textPassword
             textField.placeholderText: qsTr("PIN code")
@@ -89,17 +87,6 @@ Page {
             textField.strictValidation: true
         }
 
-//        TextFieldCustom {
-//            id: textKeyLicence
-//            textField.placeholderText: qsTr("License key")
-//        }
-
-//        TextFieldCustom {
-//            id: textVersion
-////            textField.text: _registerPageViewModel.productVersion
-//            textField.readOnly: true
-//        }
-
         Rectangle {
             width: parent.width
             height: Theme.itemSizeLarge / 1.5
@@ -111,7 +98,6 @@ Page {
             preferredWidth: parent.width
             height: Theme.itemSizeLarge
             anchors.horizontalCenter: parent.horizontalCenter
-//            backgroundColor: "#85C3FF"
             backgroundColor: palette.highlightBackgroundColor
 
             Text {
@@ -125,15 +111,9 @@ Page {
 
             MouseArea {
                 anchors.fill: parent
-//                onClicked: {
-//                    if(textNickName.textField.acceptableInput && textPassword.textField.acceptableInput) {
-//                        _registerPageViewModel.registerUser()
-//                        textNickName.textField.text = ""
-//                        textPassword.textField.text = ""
-//                    } else {
-//                        console.log("поле логина и/или пароля содержит недопустимый ввод")
-//                    }
-//                }
+                onClicked: {
+
+                }
             }
         }
     }
@@ -145,35 +125,5 @@ Page {
         text: qsTr("Version") + ": "  //+ _registerPageViewModel.productVersion
         font.pixelSize: Theme.fontSizeSmall
         color: palette.highlightColor
-    }
-
-//    SquareButton {
-//        id: sqButt
-//        width: Theme.buttonWidthTiny
-//        height: Theme.buttonWidthTiny
-//        imageSource: Qt.resolvedUrl("../icons/Add.svg")
-//        anchors.right: parent.right
-//        anchors.bottom: parent.bottom
-//    }
-
-    Button {
-        id: addButton
-        width: Theme.buttonWidthTiny
-        height: width
-        backgroundColor: palette.highlightBackgroundColor
-        anchors {
-            rightMargin: Theme.horizontalPageMargin
-            right: parent.right
-            bottomMargin: Theme.horizontalPageMargin
-            bottom: parent.bottom
-        }
-
-        Image {
-            id: img
-            source: "../icons/Add.svg"
-            sourceSize.width: parent.width / 2.0
-            sourceSize.height: width / 2.0
-            anchors.centerIn: parent
-        }
     }
 }
