@@ -24,8 +24,8 @@ Item {
 
         Image {
             id: image
-            sourceSize.width: imageSize
-            sourceSize.height: imageSize
+            sourceSize.width: Theme.iconSizeExtraSmall
+            sourceSize.height: Theme.iconSizeExtraSmall
             anchors.centerIn: parent
         }
 
