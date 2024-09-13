@@ -17,7 +17,16 @@ file(GLOB TsFiles "translations/*.ts")
 qt5_add_translation(QmFiles ${TsFiles})
 
 set(SOURCES
+    src/dto/contact.h
     src/main.cpp
+    src/models/contactmodel.cpp
+    src/models/contactmodel.h
+    src/models/contactsdatabasemodel.cpp
+    src/models/contactsdatabasemodel.h
+    src/viewmodels/abonentcardviewmodel.cpp
+    src/viewmodels/abonentcardviewmodel.h
+    src/viewmodels/contactviewmodel.cpp
+    src/viewmodels/contactviewmodel.h
 )
 
 set(CMAKE_SKIP_RPATH FALSE)
@@ -31,6 +40,7 @@ target_compile_definitions(${PROJECT_NAME} PRIVATE
 target_include_directories(${PROJECT_NAME} PRIVATE
     $<BUILD_INTERFACE:
     ${AURORA_INCLUDE_DIRS}
+    src
 >)
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Quick

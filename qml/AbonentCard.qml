@@ -2,9 +2,19 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.Layouts 1.1
 
-Item {
+//import "../src/dto"
+//import "../src/models/"
+
+Page {
     id: root
     anchors.fill: parent
+    showNavigationIndicator: false
+
+    property int userId
+    onUserIdChanged: {
+        _abonentCardViewModel.userId = userId
+        console.log("User id changed", userId)
+    }
 
     // INFO: Верхний элемент с двумя кнопками управления
     Item {
@@ -101,7 +111,9 @@ Item {
             // INFO: Текстовое поле с личными данными абонента (ФИО/никнейм)
             Label {
                 id: label
-                text: "Name Surname"
+//                text: "Name Surname"
+//                text: _abonentViewModel.name
+                text: _abonentCardViewModel.name
                 color: palette.primaryColor
 //            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -138,7 +150,9 @@ Item {
                     Label {
                         id: telephoneNumberValue
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
-                        text: "8(999)333-44-55"
+//                        text: "8(999)333-44-55"
+//                        text: _abonentViewModel.telephoneNumber
+                        text: _abonentCardViewModel.telephoneNumber
                         color: palette.secondaryColor
                     }
                 }
@@ -172,7 +186,9 @@ Item {
                     Label {
                         id: emailAddressValue
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
-                        text: "___@___.ru"
+//                        text: "___@___.ru"
+//                        text: _abonentViewModel.emailAddress
+                        text: _abonentCardViewModel.emailAddress
                         color: palette.secondaryColor
                     }
                 }

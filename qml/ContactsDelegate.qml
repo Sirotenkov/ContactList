@@ -2,11 +2,14 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.Layouts 1.1
 
-Rectangle {
+    ListItem {
     id: root
-    width: parent.width
-    height: Theme.itemSizeLarge
-    color: palette.secondaryColor
+//    width: parent.width
+//    height: Theme.itemSizeLarge
+
+    property string name
+    property string telephoneNumber
+    property string emailAddress
 
     RowLayout {
         spacing: Theme.paddingMedium
@@ -28,39 +31,51 @@ Rectangle {
             sourceSize.width: parent.width
         }
 
-        Column {
-            Layout.fillWidth: true
-            height: parent.height
-
-            Item {
-                id: topRectangle
-                width: parent.width
-                height: parent.height / 2.0
-
-                Label {
-                    id: nameSurname
-                    text: "Name Surname"
-                    font.pixelSize: Theme.fontSizeMedium
-                    font.italic: true
-                    color: palette.secondaryColor
-                    truncationMode: TruncationMode.Elide
-                }
+        ColumnLayout {
+            anchors {
+                left: avatar.right
+                leftMargin: Theme.horizontalPageMargin
+                right: parent.right
+                rightMargin: Theme.horizontalPageMargin
             }
 
-            Item {
-                id: bottomRectangle
-                width: parent.width
-                height: parent.height / 2.0
 
-                Label {
-                    id: telephoneNumber
-                    text: "8(999)333-44-55"
-                    font.pixelSize: Theme.fontSizeMedium
-                    font.italic: true
-                    color: palette.secondaryColor
-                    truncationMode: TruncationMode.Elide
-                }
+            Label {
+                id: nameSurname
+                width: parent.width
+                text: name
+                font.pixelSize: Theme.fontSizeMedium
+                font.italic: true
+                color: palette.secondaryColor
+                horizontalAlignment: Qt.AlignHCenter
+                truncationMode: TruncationMode.Elide
+            }
+
+            Label {
+                id: telephoneNumberID
+                width: parent.width
+                text: telephoneNumber // + emailAddress
+                font.pixelSize: Theme.fontSizeMedium
+                font.italic: true
+                color: palette.secondaryColor
+                horizontalAlignment: Qt.AlignHCenter
+                truncationMode: TruncationMode.Elide
             }
         }
     }
+
+    menu: ContextMenu {
+        id: contextMenu
+
+        MenuItem {
+            text: qsTr("Редактировать")
+            onClicked: console.log("Clicked \"Edit\" Abonent card with UserId: %1".arg(model.userId))
+        }
+
+        MenuItem {
+            text: qsTr("Удалить")
+            onClicked: console.log("Clicked \"Delete\" Abonent card with UserId: %1".arg(model.userId))
+        }
+    }
+
 }
