@@ -2,9 +2,6 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.Layouts 1.1
 
-//import "../src/dto"
-//import "../src/models/"
-
 Page {
     id: root
     anchors.fill: parent
@@ -54,7 +51,6 @@ Page {
             text: qsTr("Edit")
             backgroundColor: palette.secondaryHighlightColor
         }
-
     }
 
     // INFO: Область карточки абонента (с возможностью скролла в случае,
@@ -84,21 +80,6 @@ Page {
             }
             spacing: Theme.paddingLarge
 
-//            PageHeader {
-//                objectName: "abonentCard"
-//                title: qsTr("Abonen Card")
-//            }
-
-//            Label {
-//                objectName: "descriptionText"
-//                anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
-//                color: palette.highlightColor
-//                font.pixelSize: Theme.fontSizeSmall
-//                textFormat: Text.RichText
-//                wrapMode: Text.WordWrap
-//                text: qsTr("Abonent card")
-//            }
-
             // INFO: Аватар
             Image {
                 id: avatar
@@ -111,8 +92,6 @@ Page {
             // INFO: Текстовое поле с личными данными абонента (ФИО/никнейм)
             Label {
                 id: label
-//                text: "Name Surname"
-//                text: _abonentViewModel.name
                 text: _abonentCardViewModel.name
                 color: palette.primaryColor
 //            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
@@ -150,13 +129,10 @@ Page {
                     Label {
                         id: telephoneNumberValue
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
-//                        text: "8(999)333-44-55"
-//                        text: _abonentViewModel.telephoneNumber
                         text: _abonentCardViewModel.telephoneNumber
                         color: palette.secondaryColor
                     }
                 }
-
             }
 
             // INFO: Область отображения данных адреса электронной почты
@@ -186,13 +162,10 @@ Page {
                     Label {
                         id: emailAddressValue
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
-//                        text: "___@___.ru"
-//                        text: _abonentViewModel.emailAddress
                         text: _abonentCardViewModel.emailAddress
                         color: palette.secondaryColor
                     }
                 }
-
             }
 
             // INFO: Область отображения заметки
