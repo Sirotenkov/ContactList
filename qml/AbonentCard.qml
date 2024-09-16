@@ -51,6 +51,9 @@ Page {
             preferredWidth: Theme.buttonWidthExtraSmall
             text: qsTr("Edit")
             backgroundColor: palette.secondaryHighlightColor
+            onClicked: {
+
+            }
         }
     }
 
@@ -91,10 +94,10 @@ Page {
             }
 
             // INFO: Текстовое поле с личными данными абонента (ФИО/никнейм)
-//            Label {
-            TextField {
+            Label {
+//            TextField {
                 id: label
-                readOnly: true
+//                readOnly: true
                 text: _abonentCardViewModel.name
                 color: palette.primaryColor
 //            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
@@ -102,7 +105,7 @@ Page {
                 font.pixelSize: Theme.fontSizeHuge
                 font.bold: true
                 font.italic: true
-//                truncationMode: TruncationMode.Elide
+                truncationMode: TruncationMode.Elide
             }
 
             // INFO: Область отображения данных номера телефона
@@ -129,16 +132,16 @@ Page {
                         color: palette.highlightDimmerColor
                     }
 
-//                    Label {
-                    TextField {
+                    Label {
+//                    TextField {
                         id: telephoneNumberValue
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
                         text: _abonentCardViewModel.telephoneNumber
                         color: palette.secondaryColor
-                        inputMethodHints: Qt.ImhNoAutoUppercase
-                        EnterKey.enabled: text.length > 0
-                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                        EnterKey.onClicked: emailAddressValue.focus = true // console.log(text)
+//                        inputMethodHints: Qt.ImhNoAutoUppercase
+//                        EnterKey.enabled: text.length > 0
+//                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
+//                        EnterKey.onClicked: emailAddressValue.focus = true // console.log(text)
                     }
                 }
             }
@@ -167,16 +170,16 @@ Page {
                         color: palette.highlightDimmerColor
                     }
 
-//                    Label {
-                    TextField {
+                    Label {
+//                    TextField {
                         id: emailAddressValue
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
                         text: _abonentCardViewModel.emailAddress
                         color: palette.secondaryColor
-                        inputMethodHints: Qt.ImhNoAutoUppercase
-                        EnterKey.enabled: text.length > 0
-                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                        EnterKey.onClicked: notesValue.focus = true // console.log(text)
+//                        inputMethodHints: Qt.ImhNoAutoUppercase
+//                        EnterKey.enabled: text.length > 0
+//                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
+//                        EnterKey.onClicked: notesValue.focus = true // console.log(text)
                     }
                 }
             }
@@ -205,19 +208,19 @@ Page {
                         color: palette.highlightDimmerColor
                     }
 
-//                    Label {
-                    TextArea {
+                    Label {
+//                    TextArea {
                         id: notesValue
-                        placeholderText: qsTr("Text note")
-                        placeholderColor: palette.primaryColor
+//                        placeholderText: qsTr("Text note")
+//                        placeholderColor: palette.primaryColor
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
 //                        height: Theme.itemSizeHuge * 10.0
 //                        height: contentHeight
                         color: palette.secondaryColor
-                        inputMethodHints: Qt.ImhNoAutoUppercase
-                        EnterKey.enabled: text.length > 0
-                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                        EnterKey.onClicked: console.log(text)
+//                        inputMethodHints: Qt.ImhNoAutoUppercase
+//                        EnterKey.enabled: text.length > 0
+//                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
+//                        EnterKey.onClicked: console.log(text)
                         wrapMode: TextEdit.Wrap
                     }
                 }
