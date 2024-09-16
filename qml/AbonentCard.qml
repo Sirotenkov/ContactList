@@ -52,7 +52,7 @@ Page {
             text: qsTr("Edit")
             backgroundColor: palette.secondaryHighlightColor
             onClicked: {
-
+                pageStack.push(Qt.resolvedUrl("AbonentCardEditing.qml"))
             }
         }
     }
