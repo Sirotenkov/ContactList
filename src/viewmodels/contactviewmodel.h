@@ -5,17 +5,17 @@
 #include <QObject>
 #include <QString>
 
-#include <models/contactmodel.h>
-#include <models/contactsdatabasemodel.h>
+#include "dto/contact.h"
+#include "dao/databasecontacts.h"
 
 class ContactViewModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    Q_PROPERTY(QList<Contact> contacts READ contacts WRITE setContacts NOTIFY contactsChanged FINAL)
+    Q_PROPERTY(QList<DatabaseStruct> contacts READ contacts WRITE setContacts NOTIFY contactsChanged FINAL)
 
 public:
-    explicit ContactViewModel(ContactsDatabaseModel* model = nullptr, QObject *parent = nullptr);
+    explicit ContactViewModel(DatabaseContacts* model = nullptr, QObject *parent = nullptr);
 
     enum ContactModelRole {
         UserId = Qt::UserRole + 1,
@@ -28,15 +28,21 @@ public:
     int rowCount(const QModelIndex &parent) const override;
     QVariant data(const QModelIndex &index, int role) const override;
 
-    const QList<Contact> &contacts() const;
-    void setContacts(const QList<Contact> &newContacts);
+    const QList<DatabaseStruct> &contacts() const;
+    void setContacts(const QList<DatabaseStruct> &newContacts);
+    Q_INVOKABLE void remove(qint64 userId);
 
 signals:
     void contactsChanged();
 
-private:
-    QList <Contact> m_contacts;
+private slots:
+    void onDatabaseUpdated(qint64 userId);
+    void onDatabaseInserted(qint64 userId);
+    void onDatabaseRemoved(qint64 userId);
 
+private:
+    QList <DatabaseStruct> m_contacts;
+    DatabaseContacts *m_model = nullptr;
 };
 
 #endif // CONTACTVIEWMODEL_H

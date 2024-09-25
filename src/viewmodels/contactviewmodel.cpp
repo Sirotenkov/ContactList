@@ -1,13 +1,74 @@
-#include "contactviewmodel.h"
+#include <QDebug>
+#include <QModelIndex>
 
-ContactViewModel::ContactViewModel(ContactsDatabaseModel* model, QObject *parent) : QAbstractListModel{parent}
+#include "contactviewmodel.h"
+#include "dao/databasecontacts.h"
+
+ContactViewModel::ContactViewModel(DatabaseContacts* model, QObject *parent)
+    : QAbstractListModel{parent}
+    , m_model(model)
 {
-    //m_contacts.append(new ContactModel(QString("Nick"), QString("+7(999)111-11-11"), QString("aaa@qqq.yy")));
-    //m_contacts.append(new ContactModel(QString("Dick"), QString("+7(999)222-22-22"), QString("bbb@bbb.yy")));
-    //m_contacts.append(new ContactModel(QString("Rick"), QString("+7(999)333-33-33"), QString("ccc@fff.yy")));
-    //m_contacts.append(new ContactModel(QString("Mick"), QString("+7(999)444-44-44"), QString("vvv@bbb.yy")));
-    //m_contacts.append(new ContactModel(QString("Wick"), QString("+7(999)555-55-55"), QString("nnn@mmm.yy")));
-    m_contacts = model->list();
+    connect(m_model, &DatabaseContacts::updated,
+            this, &ContactViewModel::onDatabaseUpdated);
+    connect(m_model, &DatabaseContacts::inserted,
+            this, &ContactViewModel::onDatabaseInserted);
+    connect(m_model, &DatabaseContacts::removed,
+            this, &ContactViewModel::onDatabaseRemoved);
+
+    m_contacts = m_model->list();
+}
+
+void ContactViewModel::onDatabaseUpdated(qint64 userId)
+{
+    qDebug() << userId;
+
+    std::optional<DatabaseStruct> const databaseStruct = m_model->find(userId);
+    if(!databaseStruct)
+    {
+        qDebug() << "no such user found with id" << userId;
+        return;
+    }
+
+    for (auto i = 0; i < m_contacts.size(); ++i) {
+        if (m_contacts[i].userId == userId) {
+            m_contacts[i] = *databaseStruct;
+            emit dataChanged(index(i, 0), index(i, 0), {NameRole, TelephoneNumberRole, EmailAddressRole});
+            break;
+        }
+    }
+}
+
+void ContactViewModel::onDatabaseInserted(qint64 userId)
+{
+    qDebug() << userId;
+
+    std::optional<DatabaseStruct> const databaseStruct = m_model->find(userId);
+    if(!databaseStruct)
+    {
+        qDebug() << "no such user found with id" << userId;
+        return;
+    }
+
+    beginInsertRows(QModelIndex(), 0, 0);
+    m_contacts.prepend(*databaseStruct);
+    endInsertRows();
+}
+
+void ContactViewModel::onDatabaseRemoved(qint64 userId)
+{
+    qDebug() << userId;
+
+    for (auto i = 0; i < m_contacts.size(); ++i) {
+        if (m_contacts[i].userId == userId) {
+
+            beginRemoveRows(QModelIndex(), i, i);
+            m_contacts.removeAt(i);
+            endRemoveRows();
+
+            qDebug() << "Row remove";
+            break;
+        }
+    }
 }
 
 int ContactViewModel::rowCount(const QModelIndex &parent) const
@@ -42,17 +103,25 @@ QVariant ContactViewModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-const QList<Contact> &ContactViewModel::contacts() const
+const QList<DatabaseStruct> &ContactViewModel::contacts() const
 {
     return m_contacts;
 }
 
-void ContactViewModel::setContacts(const QList<Contact> &newContacts)
+void ContactViewModel::setContacts(const QList<DatabaseStruct> &newContacts)
 {
 //    if (m_contacts == newContacts)
 //        return;
-    m_contacts = newContacts;
-    emit contactsChanged();
+//    if (newContacts != m_contacts)
+//    {
+        m_contacts = newContacts;
+        emit contactsChanged();
+        //    }
+}
+
+void ContactViewModel::remove(qint64 userId)
+{
+    m_model->remove(userId);
 }
 
 QHash<int, QByteArray> ContactViewModel::roleNames() const
