@@ -29,12 +29,46 @@ Page {
             width: ListView.view.width
             name: model.name
             telephoneNumber: model.telephoneNumber
-            emailAddress: model.emailAddress
+//            emailAddress: model.emailAddress
             onClicked: {
                 console.log("Open Abonent Card %1".arg(index+1))
                 console.log("Open Abonent UserId %1".arg(model.userId))
                 pageStack.push(Qt.resolvedUrl("AbonentCard.qml"), {userId: model.userId})
-//                pageStack.push(Qt.resolvedUrl("AbonentCard.qml"), {"chatId": model.chatId})
+            }
+
+            menu: ContextMenu {
+                id: contextMenu
+                closeOnActivation: true
+
+                MenuItem {
+                    text: qsTr("Изменить")
+                    onClicked: {
+                        var dialog = pageStack.push("AbonentCard.qml", {userId: model.userId})
+                        console.log("Press Edit button context menu")
+
+                    }
+                }
+
+                MenuItem {
+                    text: qsTr("Удалить")
+                    onClicked: {
+                        console.log("Press Delete button context menu")
+                            _viewModel.remove(model.userId);
+                    }
+                }
+            }
+        }
+
+        PullDownMenu {
+            MenuItem {
+                text: qsTr("Добавить контакт")
+                onClicked: {
+                    console.log("Press Add Contact button pulldown menu")
+                    var dialog = pageStack.push("AbonentCardEditing.qml")
+                    dialog.accepted.connect(function() {
+                        _abonentCardViewModel.insert();
+                    })
+                }
             }
         }
     }
