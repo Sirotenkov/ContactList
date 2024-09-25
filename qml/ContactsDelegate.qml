@@ -39,7 +39,6 @@ import QtQuick.Layouts 1.1
                 rightMargin: Theme.horizontalPageMargin
             }
 
-
             Label {
                 id: nameSurname
                 width: parent.width
@@ -48,13 +47,25 @@ import QtQuick.Layouts 1.1
                 font.italic: true
                 color: palette.secondaryColor
                 horizontalAlignment: Qt.AlignHCenter
-                truncationMode: TruncationMode.Elide
+                truncationMode: TruncationMode.None
             }
 
             Label {
                 id: telephoneNumberID
                 width: parent.width
-                text: telephoneNumber // + emailAddress
+                text: telephoneNumber
+                font.pixelSize: Theme.fontSizeMedium
+                font.italic: true
+                color: palette.secondaryColor
+                horizontalAlignment: Qt.AlignHCenter
+                truncationMode: TruncationMode.Elide
+            }
+
+            Label {
+                id: emailAddressID
+                visible: false
+                width: parent.width
+                text: emailAddress
                 font.pixelSize: Theme.fontSizeMedium
                 font.italic: true
                 color: palette.secondaryColor
@@ -77,5 +88,4 @@ import QtQuick.Layouts 1.1
             onClicked: console.log("Clicked \"Delete\" Abonent card with UserId: %1".arg(model.userId))
         }
     }
-
 }
