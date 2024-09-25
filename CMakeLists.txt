@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(ru.template.ContactList CXX)
 
-find_package (Qt5 COMPONENTS Core Network Qml Gui Quick LinguistTools REQUIRED)
+find_package (Qt5 COMPONENTS Core Network Qml Gui Quick LinguistTools Sql REQUIRED)
 
 include(FindPkgConfig)
 pkg_search_module(AURORA auroraapp REQUIRED)
@@ -10,19 +10,17 @@ pkg_search_module(AURORA auroraapp_i18n REQUIRED)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-
 set(short_name ContactList)
 
 file(GLOB TsFiles "translations/*.ts")
 qt5_add_translation(QmFiles ${TsFiles})
 
 set(SOURCES
+    src/dao/databasecontacts.h
+    src/dao/databasecontacts.cpp
     src/dto/contact.h
+    src/dto/databasestruct.h
     src/main.cpp
-    src/models/contactmodel.cpp
-    src/models/contactmodel.h
-    src/models/contactsdatabasemodel.cpp
-    src/models/contactsdatabasemodel.h
     src/viewmodels/abonentcardviewmodel.cpp
     src/viewmodels/abonentcardviewmodel.h
     src/viewmodels/contactviewmodel.cpp
@@ -44,6 +42,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 >)
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt5::Quick
+    Qt5::Sql
     ${AURORA_LDFLAGS}
 )
 
