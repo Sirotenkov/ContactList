@@ -3,7 +3,8 @@
 
 #include <QObject>
 
-class ContactsDatabaseModel;
+#include "dto/databasestruct.h"
+#include "dao/databasecontacts.h"
 
 class AbonentCardViewModel : public QObject
 {
@@ -15,7 +16,7 @@ public:
     Q_PROPERTY(QString telephoneNumber READ telephoneNumber WRITE setTelephoneNumber NOTIFY telephoneNumberChanged)
     Q_PROPERTY(QString emailAddress READ emailAddress WRITE setEmailAddress NOTIFY emailAddressChanged)
 
-    explicit AbonentCardViewModel(ContactsDatabaseModel* model = nullptr, QObject *parent = nullptr);
+    explicit AbonentCardViewModel(DatabaseContacts* model = nullptr, QObject *parent = nullptr);
 
     const QString &name() const;
     void setName(const QString &newName);
@@ -27,7 +28,11 @@ public:
     void setEmailAddress(const QString &newEmailAddress);
 
     int userId() const;
-    void setUserId(int newId);
+    void setUserId(int userId);
+
+    Q_INVOKABLE void insert();
+    Q_INVOKABLE void update();
+    Q_INVOKABLE void remove(qint64 userId);
 
 signals:
     void nameChanged();
@@ -38,8 +43,14 @@ signals:
 
     void userIdChanged();
 
+    void inserted();
+
+    void updated();
+
+    void removed();
+
 private:
-    ContactsDatabaseModel* m_model = nullptr;
+    DatabaseContacts* m_database = nullptr;
 
     QString m_name;
     QString m_telephoneNumber;

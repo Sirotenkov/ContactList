@@ -1,14 +1,11 @@
 #include <QDebug>
 
 #include "abonentcardviewmodel.h"
-#include <models/contactsdatabasemodel.h>
+#include "dto/databasestruct.h"
 
-AbonentCardViewModel::AbonentCardViewModel(ContactsDatabaseModel* model, QObject *parent)
+AbonentCardViewModel::AbonentCardViewModel(DatabaseContacts* database, QObject* parent)
     : QObject(parent)
-    , m_model(model)
-{
-
-}
+    , m_database(database) {}
 
 const QString &AbonentCardViewModel::name() const
 {
@@ -17,6 +14,8 @@ const QString &AbonentCardViewModel::name() const
 
 void AbonentCardViewModel::setName(const QString &newName)
 {
+    qDebug() << newName;
+
     if (m_name == newName)
         return;
     m_name = newName;
@@ -30,6 +29,8 @@ const QString &AbonentCardViewModel::telephoneNumber() const
 
 void AbonentCardViewModel::setTelephoneNumber(const QString &newTelephoneNumber)
 {
+    qDebug() << newTelephoneNumber;
+
     if (m_telephoneNumber == newTelephoneNumber)
         return;
     m_telephoneNumber = newTelephoneNumber;
@@ -43,6 +44,8 @@ const QString &AbonentCardViewModel::emailAddress() const
 
 void AbonentCardViewModel::setEmailAddress(const QString &newEmailAddress)
 {
+    qDebug() << newEmailAddress;
+
     if (m_emailAddress == newEmailAddress)
         return;
     m_emailAddress = newEmailAddress;
@@ -61,7 +64,7 @@ void AbonentCardViewModel::setUserId(int newUserId)
     m_userId = newUserId;
     emit userIdChanged();
 
-    auto const& contact = m_model->find(m_userId);
+    auto const& contact = m_database->find(m_userId);
     if (!contact) {
         qDebug() << "no such value found with id" << m_userId;
         return;
@@ -70,4 +73,22 @@ void AbonentCardViewModel::setUserId(int newUserId)
     setName(contact->name);
     setTelephoneNumber(contact->telephoneNumber);
     setEmailAddress(contact->emailAddress);
+}
+
+void AbonentCardViewModel::insert()
+{
+    m_database->insert(m_name, m_telephoneNumber, m_emailAddress);
+    emit inserted();
+}
+
+void AbonentCardViewModel::update()
+{
+    m_database->update(m_userId, m_name, m_telephoneNumber, m_emailAddress);
+    emit updated();
+}
+
+void AbonentCardViewModel::remove(qint64 userId)
+{
+    m_database->remove(m_userId);
+    emit removed();
 }
