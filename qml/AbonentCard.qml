@@ -13,6 +13,25 @@ Page {
         console.log("User id changed", userId)
     }
 
+    Binding {
+        target: _abonentCardViewModel
+        property: "name"
+        value: label.text
+    }
+
+    Binding {
+        target: _abonentCardViewModel
+        property: "telephoneNumber"
+        value: telephoneNumberValue.text
+    }
+
+    Binding {
+        target: _abonentCardViewModel
+        property: "emailAddress"
+        value: emailAddressValue.text
+    }
+
+
     // INFO: Верхний элемент с двумя кнопками управления
     Item {
         id: headerElement
@@ -46,13 +65,34 @@ Page {
 
         Button {
             id: edit
+            visible: true
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
             preferredWidth: Theme.buttonWidthExtraSmall
             text: qsTr("Edit")
             backgroundColor: palette.secondaryHighlightColor
             onClicked: {
-                pageStack.push(Qt.resolvedUrl("AbonentCardEditing.qml"))
+                visible = !visible;
+                save.visible = !save.visible
+//                pageStack.push(Qt.resolvedUrl("AbonentCardEditing.qml"))
+                label.readOnly = false;
+                label.focus = true;
+                telephoneNumberValue.readOnly = false;
+                emailAddressValue.readOnly = false;
+            }
+        }
+
+        Button {
+            id: save
+            visible: false
+            anchors.right: parent.right
+            anchors.verticalCenter: parent.verticalCenter
+            preferredWidth: Theme.buttonWidthExtraSmall
+            text: qsTr("Save")
+            backgroundColor: palette.secondaryHighlightColor
+            onClicked: {
+                console.log("Press Save Button!")
+                _abonentCardViewModel.update()
             }
         }
     }
@@ -94,18 +134,19 @@ Page {
             }
 
             // INFO: Текстовое поле с личными данными абонента (ФИО/никнейм)
-            Label {
-//            TextField {
+            TextField {
                 id: label
-//                readOnly: true
+                readOnly: true
                 text: _abonentCardViewModel.name
                 color: palette.primaryColor
 //            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
                 anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Qt.AlignHCenter
                 font.pixelSize: Theme.fontSizeHuge
                 font.bold: true
                 font.italic: true
-                truncationMode: TruncationMode.Elide
+//                wrapMode: TextEdit.WordWrap
+//                truncationMode: TruncationMode.Elide
             }
 
             // INFO: Область отображения данных номера телефона
@@ -132,16 +173,13 @@ Page {
                         color: palette.highlightDimmerColor
                     }
 
-                    Label {
-//                    TextField {
+                    TextField {
                         id: telephoneNumberValue
+                        readOnly: true
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
                         text: _abonentCardViewModel.telephoneNumber
                         color: palette.secondaryColor
-//                        inputMethodHints: Qt.ImhNoAutoUppercase
-//                        EnterKey.enabled: text.length > 0
-//                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
-//                        EnterKey.onClicked: emailAddressValue.focus = true // console.log(text)
+                        inputMethodHints: Qt.ImhDialableCharactersOnly
                     }
                 }
             }
@@ -170,58 +208,13 @@ Page {
                         color: palette.highlightDimmerColor
                     }
 
-                    Label {
-//                    TextField {
+                    TextField {
                         id: emailAddressValue
+                        readOnly: true
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
                         text: _abonentCardViewModel.emailAddress
                         color: palette.secondaryColor
-//                        inputMethodHints: Qt.ImhNoAutoUppercase
-//                        EnterKey.enabled: text.length > 0
-//                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
-//                        EnterKey.onClicked: notesValue.focus = true // console.log(text)
-                    }
-                }
-            }
-
-            // INFO: Область отображения заметки
-            Rectangle {
-                id: notesArea
-                width: parent.width
-//                anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
-                height: columnNotes.height + 2.0 * Theme.paddingLarge
-                color: palette.highlightColor
-                radius: 20
-
-                Column {
-                    id: columnNotes
-                    width: parent.width - 2.0 * Theme.horizontalPageMargin
-                    height: childrenRect.height
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.left: parent.left
-                    spacing: Theme.paddingLarge
-
-                    Label {
-                        id: notesText
-                        anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
-                        text: qsTr("Notes") + " :"
-                        color: palette.highlightDimmerColor
-                    }
-
-                    Label {
-//                    TextArea {
-                        id: notesValue
-//                        placeholderText: qsTr("Text note")
-//                        placeholderColor: palette.primaryColor
-                        anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
-//                        height: Theme.itemSizeHuge * 10.0
-//                        height: contentHeight
-                        color: palette.secondaryColor
-//                        inputMethodHints: Qt.ImhNoAutoUppercase
-//                        EnterKey.enabled: text.length > 0
-//                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
-//                        EnterKey.onClicked: console.log(text)
-                        wrapMode: TextEdit.Wrap
+                        inputMethodHints: Qt.ImhEmailCharactersOnly
                     }
                 }
             }
