@@ -64,7 +64,6 @@ Dialog {
             Rectangle {
                 id: nameArea
                 width: parent.width
-//                anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
                 height: columnName.height + 2.0 * Theme.paddingLarge
                 color: palette.highlightColor
                 radius: 20
@@ -99,7 +98,6 @@ Dialog {
             Rectangle {
                 id: telephoneNumberArea
                 width: parent.width
-//                anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
                 height: columnTelephoneNumber.height + 2.0 * Theme.paddingLarge
                 color: palette.highlightColor
                 radius: 20
@@ -123,7 +121,6 @@ Dialog {
                         id: telephoneNumber
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
                         color: palette.secondaryColor
-
                         inputMethodHints: Qt.ImhDialableCharactersOnly
                         EnterKey.enabled: text.length > 0
                         EnterKey.iconSource: "image://theme/icon-m-enter-next"
@@ -135,7 +132,6 @@ Dialog {
             Rectangle {
                 id: emailAddressArea
                 width: parent.width
-//                anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
                 height: columnEmailAddress.height + 2.0 * Theme.paddingLarge
                 color: palette.highlightColor
                 radius: 20
