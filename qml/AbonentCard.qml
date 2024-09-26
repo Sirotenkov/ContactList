@@ -145,8 +145,6 @@ Page {
                 font.pixelSize: Theme.fontSizeHuge
                 font.bold: true
                 font.italic: true
-//                wrapMode: TextEdit.WordWrap
-//                truncationMode: TruncationMode.Elide
             }
 
             // INFO: Область отображения данных номера телефона
