@@ -8,15 +8,22 @@ Page {
     allowedOrientations: Orientation.All
     anchors.fill: parent
 
-    Header {
+//    Header {
+//        id: header
+//        width: parent.width
+//    }
+
+    PageHeader {
         id: header
-        width: parent.width
+        title: qsTr("Контакты")
+        anchors.horizontalCenter: parent.horizontalCenter
+        description: qsTr("Список контактов")
     }
 
     SilicaListView {
         id: listView
         anchors.top: header.bottom
-        anchors.bottom: footer.top
+        anchors.bottom: parent.bottom // footer.top
         anchors.left: parent.left
         anchors.right: parent.right
         clip: true
@@ -73,8 +80,8 @@ Page {
         }
     }
 
-    Footer {
-        id: footer
-        width: parent.width
-    }
+//    Footer {
+//        id: footer
+//        width: parent.width
+//    }
 }
