@@ -10,8 +10,6 @@ Page {
     states: [
         State {
             name: "editState"; when: editing
-            //PropertyChanges { target: edit; visible: false }
-            //PropertyChanges { target: save; visible: true }
             PropertyChanges { target: editSaveButton; text: qsTr("Save") }
             PropertyChanges { target: editSaveButton; onClicked: {
                     editing = !editing; _abonentCardViewModel.update();} }
@@ -23,8 +21,6 @@ Page {
         },
         State {
             name: "readState"; when: !editing
-            //PropertyChanges { target: edit; visible: true }
-            //PropertyChanges { target: save; visible: false }
             PropertyChanges { target: editSaveButton; text: qsTr("Edit") }
             PropertyChanges { target: editSaveButton; onClicked: {
                     editing = !editing} }
@@ -34,7 +30,6 @@ Page {
             PropertyChanges { target: telephoneNumberValue; readOnly: true }
             PropertyChanges { target: emailAddressValue; readOnly: true }
         }
-
     ]
 
     property bool editing: false
@@ -62,7 +57,6 @@ Page {
         property: "emailAddress"
         value: emailAddressValue.text
     }
-
 
     // INFO: Верхний элемент с двумя кнопками управления
     Item {
@@ -102,34 +96,6 @@ Page {
             preferredWidth: Theme.buttonWidthExtraSmall
             backgroundColor: palette.secondaryHighlightColor
         }
-
-//        Button {
-//            id: edit
-//            visible: false
-//            anchors.right: parent.right
-//            anchors.verticalCenter: parent.verticalCenter
-//            preferredWidth: Theme.buttonWidthExtraSmall
-//            text: qsTr("Edit")
-//            backgroundColor: palette.secondaryHighlightColor
-//            onClicked: {
-//                editing = !editing
-//            }
-//        }
-
-//        Button {
-//            id: save
-//            visible: false
-//            anchors.right: parent.right
-//            anchors.verticalCenter: parent.verticalCenter
-//            preferredWidth: Theme.buttonWidthExtraSmall
-//            text: qsTr("Save")
-//            backgroundColor: palette.secondaryHighlightColor
-//            onClicked: {
-//                console.log("Press Save Button!")
-//                editing = !editing
-//                _abonentCardViewModel.update()
-//            }
-//        }
     }
 
     // INFO: Область карточки абонента (с возможностью скролла в случае,
@@ -174,7 +140,6 @@ Page {
                 readOnly: true
                 text: _abonentCardViewModel.name
                 color: palette.primaryColor
-//            anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Qt.AlignHCenter
                 font.pixelSize: Theme.fontSizeHuge
@@ -188,7 +153,6 @@ Page {
             Rectangle {
                 id: telephoneNumberArea
                 width: parent.width
-//                anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
                 height: columnTelephoneNumber.height + 2.0 * Theme.paddingLarge
                 color: palette.highlightColor
                 radius: 20
@@ -223,7 +187,6 @@ Page {
             Rectangle {
                 id: emailAddressArea
                 width: parent.width
-//                anchors { left: parent.left; right: parent.right; margins: Theme.horizontalPageMargin }
                 height: columnEmailAddress.height + 2.0 * Theme.paddingLarge
                 color: palette.highlightColor
                 radius: 20
