@@ -8,11 +8,6 @@ Page {
     allowedOrientations: Orientation.All
     anchors.fill: parent
 
-//    Header {
-//        id: header
-//        width: parent.width
-//    }
-
     PageHeader {
         id: header
         title: qsTr("Контакты")
@@ -36,7 +31,6 @@ Page {
             width: ListView.view.width
             name: model.name
             telephoneNumber: model.telephoneNumber
-//            emailAddress: model.emailAddress
             onClicked: {
                 console.log("Open Abonent Card %1".arg(index+1))
                 console.log("Open Abonent UserId %1".arg(model.userId))
@@ -52,7 +46,6 @@ Page {
                     onClicked: {
                         var dialog = pageStack.push("AbonentCard.qml", {userId: model.userId})
                         console.log("Press Edit button context menu")
-
                     }
                 }
 
@@ -79,9 +72,4 @@ Page {
             }
         }
     }
-
-//    Footer {
-//        id: footer
-//        width: parent.width
-//    }
 }
