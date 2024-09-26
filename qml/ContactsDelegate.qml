@@ -2,10 +2,14 @@ import QtQuick 2.0
 import Sailfish.Silica 1.0
 import QtQuick.Layouts 1.1
 
-    ListItem {
+ListItem {
     id: root
-//    width: parent.width
-//    height: Theme.itemSizeLarge
+    anchors {
+        leftMargin: Theme.horizontalPageMargin
+        left: parent.left
+        rightMargin: Theme.horizontalPageMargin
+        right: parent.right
+    }
 
     property string name
     property string telephoneNumber
@@ -13,66 +17,49 @@ import QtQuick.Layouts 1.1
 
     RowLayout {
         spacing: Theme.paddingMedium
-        anchors {
-            leftMargin: Theme.paddingMedium
-            rightMargin: Theme.paddingMedium
-            topMargin: Theme.paddingMedium
-            bottomMargin: Theme.paddingMedium
-            left: parent.left
-            right: parent.right
-            top: parent.top
-            bottom: parent.bottom
-        }
+        Layout.fillWidth: true
+        Layout.fillHeight: true
 
         Image {
             id: avatar
+            height: parent.height
+            width: height
             source: Qt.resolvedUrl("../qml/icons/AvatarFree.svg")
-            sourceSize.height: parent.height
-            sourceSize.width: parent.width
         }
 
         ColumnLayout {
-            anchors {
-                left: avatar.right
-                leftMargin: Theme.horizontalPageMargin
-                right: parent.right
-                rightMargin: Theme.horizontalPageMargin
-            }
+            Layout.fillWidth: true
+            Layout.fillHeight: true
 
             Label {
-                id: nameSurname
-                width: parent.width
+                id: nameID
                 text: name
                 font.pixelSize: Theme.fontSizeMedium
                 font.italic: true
                 color: palette.secondaryColor
-                horizontalAlignment: Qt.AlignHCenter
                 truncationMode: TruncationMode.None
             }
 
             Label {
                 id: telephoneNumberID
-                width: parent.width
                 text: telephoneNumber
                 font.pixelSize: Theme.fontSizeMedium
                 font.italic: true
                 color: palette.secondaryColor
-                horizontalAlignment: Qt.AlignHCenter
-                truncationMode: TruncationMode.Elide
-            }
-
-            Label {
-                id: emailAddressID
-                visible: false
-                width: parent.width
-                text: emailAddress
-                font.pixelSize: Theme.fontSizeMedium
-                font.italic: true
-                color: palette.secondaryColor
-                horizontalAlignment: Qt.AlignHCenter
                 truncationMode: TruncationMode.Elide
             }
         }
+    }
+
+    Rectangle {
+        id: underline
+        width: parent.width
+        height: 1.0
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            bottom: parent.bottom
+        }
+        color: palette.secondaryColor
     }
 
     menu: ContextMenu {
