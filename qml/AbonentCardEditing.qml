@@ -5,9 +5,9 @@ import QtQuick.Layouts 1.1
 Dialog {
     id: root
 
-    property alias name: name.text
-    property alias telephoneNumber: telephoneNumber.text
-    property alias emailAddress: emailAddress.text
+//    property alias name: name.text
+//    property alias telephoneNumber: telephoneNumber.text
+//    property alias emailAddress: emailAddress.text
 
     Binding {
         target: _abonentCardViewModel
