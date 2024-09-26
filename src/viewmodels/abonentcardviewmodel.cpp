@@ -59,8 +59,8 @@ int AbonentCardViewModel::userId() const
 
 void AbonentCardViewModel::setUserId(int newUserId)
 {
-    if (m_userId == newUserId)
-        return;
+//    if (m_userId == newUserId)
+//        return;
     m_userId = newUserId;
     emit userIdChanged();
 
