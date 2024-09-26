@@ -7,6 +7,38 @@ Page {
     anchors.fill: parent
     showNavigationIndicator: false
 
+    states: [
+        State {
+            name: "editState"; when: editing
+            //PropertyChanges { target: edit; visible: false }
+            //PropertyChanges { target: save; visible: true }
+            PropertyChanges { target: editSaveButton; text: qsTr("Save") }
+            PropertyChanges { target: editSaveButton; onClicked: {
+                    editing = !editing; _abonentCardViewModel.update();} }
+
+            PropertyChanges { target: label; readOnly: false }
+            PropertyChanges { target: label; focus: true }
+            PropertyChanges { target: telephoneNumberValue; readOnly: false }
+            PropertyChanges { target: emailAddressValue; readOnly: false }
+        },
+        State {
+            name: "readState"; when: !editing
+            //PropertyChanges { target: edit; visible: true }
+            //PropertyChanges { target: save; visible: false }
+            PropertyChanges { target: editSaveButton; text: qsTr("Edit") }
+            PropertyChanges { target: editSaveButton; onClicked: {
+                    editing = !editing} }
+
+            PropertyChanges { target: label; readOnly: true }
+            PropertyChanges { target: label; focus: false }
+            PropertyChanges { target: telephoneNumberValue; readOnly: true }
+            PropertyChanges { target: emailAddressValue; readOnly: true }
+        }
+
+    ]
+
+    property bool editing: false
+
     property int userId
     onUserIdChanged: {
         _abonentCardViewModel.userId = userId
@@ -64,37 +96,40 @@ Page {
         }
 
         Button {
-            id: edit
-            visible: true
+            id: editSaveButton
             anchors.right: parent.right
             anchors.verticalCenter: parent.verticalCenter
             preferredWidth: Theme.buttonWidthExtraSmall
-            text: qsTr("Edit")
             backgroundColor: palette.secondaryHighlightColor
-            onClicked: {
-                visible = !visible;
-                save.visible = !save.visible
-//                pageStack.push(Qt.resolvedUrl("AbonentCardEditing.qml"))
-                label.readOnly = false;
-                label.focus = true;
-                telephoneNumberValue.readOnly = false;
-                emailAddressValue.readOnly = false;
-            }
         }
 
-        Button {
-            id: save
-            visible: false
-            anchors.right: parent.right
-            anchors.verticalCenter: parent.verticalCenter
-            preferredWidth: Theme.buttonWidthExtraSmall
-            text: qsTr("Save")
-            backgroundColor: palette.secondaryHighlightColor
-            onClicked: {
-                console.log("Press Save Button!")
-                _abonentCardViewModel.update()
-            }
-        }
+//        Button {
+//            id: edit
+//            visible: false
+//            anchors.right: parent.right
+//            anchors.verticalCenter: parent.verticalCenter
+//            preferredWidth: Theme.buttonWidthExtraSmall
+//            text: qsTr("Edit")
+//            backgroundColor: palette.secondaryHighlightColor
+//            onClicked: {
+//                editing = !editing
+//            }
+//        }
+
+//        Button {
+//            id: save
+//            visible: false
+//            anchors.right: parent.right
+//            anchors.verticalCenter: parent.verticalCenter
+//            preferredWidth: Theme.buttonWidthExtraSmall
+//            text: qsTr("Save")
+//            backgroundColor: palette.secondaryHighlightColor
+//            onClicked: {
+//                console.log("Press Save Button!")
+//                editing = !editing
+//                _abonentCardViewModel.update()
+//            }
+//        }
     }
 
     // INFO: Область карточки абонента (с возможностью скролла в случае,
