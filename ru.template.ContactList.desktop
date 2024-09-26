@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=ru.template.ContactList
+Exec=/usr/bin/ru.template.ContactList
+Name=Contact list
+Name[ru]=Список контактов
+
+[X-Application]
+Permissions=
+OrganizationName=ru.template
+ApplicationName=ContactList
+ExecDBus=/usr/bin/ru.template.ContactList
