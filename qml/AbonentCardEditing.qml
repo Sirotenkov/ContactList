@@ -5,10 +5,6 @@ import QtQuick.Layouts 1.1
 Dialog {
     id: root
 
-//    property alias name: name.text
-//    property alias telephoneNumber: telephoneNumber.text
-//    property alias emailAddress: emailAddress.text
-
     Binding {
         target: _abonentCardViewModel
         property: "name"
@@ -155,7 +151,6 @@ Dialog {
                         id: emailAddress
                         anchors {leftMargin: Theme.horizontalPageMargin; left: parent.left}
                         color: palette.secondaryColor
-
                         inputMethodHints: Qt.ImhEmailCharactersOnly
                         EnterKey.enabled: text.length > 0
                         EnterKey.iconSource: "image://theme/icon-m-enter-next"
