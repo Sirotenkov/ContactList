@@ -145,6 +145,10 @@ Page {
                 font.pixelSize: Theme.fontSizeHuge
                 font.bold: true
                 font.italic: true
+                inputMethodHints: Qt.ImhNoAutoUppercase
+                EnterKey.enabled: text.length > 0
+                EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                EnterKey.onClicked: telephoneNumberValue.focus = true
             }
 
             // INFO: Область отображения данных номера телефона
@@ -177,6 +181,9 @@ Page {
                         text: _abonentCardViewModel.telephoneNumber
                         color: palette.secondaryColor
                         inputMethodHints: Qt.ImhDialableCharactersOnly
+                        EnterKey.enabled: text.length > 0
+                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
+                        EnterKey.onClicked: emailAddressValue.focus = true
                     }
                 }
             }
@@ -211,6 +218,8 @@ Page {
                         text: _abonentCardViewModel.emailAddress
                         color: palette.secondaryColor
                         inputMethodHints: Qt.ImhEmailCharactersOnly
+                        EnterKey.enabled: text.length > 0
+                        EnterKey.iconSource: "image://theme/icon-m-enter-next"
                     }
                 }
             }
