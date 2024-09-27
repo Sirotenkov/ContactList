@@ -62,14 +62,12 @@ int AbonentCardViewModel::userId() const
 
 void AbonentCardViewModel::setUserId(int newUserId)
 {
-//    if (m_userId == newUserId)
-//        return;
     m_userId = newUserId;
     emit userIdChanged();
 
     auto const& contact = m_database->find(m_userId);
     if (!contact) {
-        qDebug() << "no such value found with id" << m_userId;
+        qDebug() << "No such value found with id" << m_userId;
         return;
     }
 

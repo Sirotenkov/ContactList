@@ -56,7 +56,6 @@ private:
     QString m_telephoneNumber;
     QString m_emailAddress;
     int m_userId;
-
 };
 
 #endif // ABONENTCARDVIEWMODEL_H

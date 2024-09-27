@@ -45,7 +45,7 @@ void ContactViewModel::onDatabaseInserted(qint64 userId)
     std::optional<DatabaseStruct> const databaseStruct = m_model->find(userId);
     if(!databaseStruct)
     {
-        qDebug() << "no such user found with id" << userId;
+        qDebug() << "No such user found with id" << userId;
         return;
     }
 
