@@ -86,7 +86,7 @@ Dialog {
                         inputMethodHints: Qt.ImhNoAutoUppercase
                         EnterKey.enabled: text.length > 0
                         EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                        EnterKey.onClicked: telephoneNumber.focus = true // console.log(text)
+                        EnterKey.onClicked: telephoneNumber.focus = true
                     }
                 }
             }
@@ -120,7 +120,7 @@ Dialog {
                         inputMethodHints: Qt.ImhDialableCharactersOnly
                         EnterKey.enabled: text.length > 0
                         EnterKey.iconSource: "image://theme/icon-m-enter-next"
-                        EnterKey.onClicked: emailAddress.focus = true // console.log(text)
+                        EnterKey.onClicked: emailAddress.focus = true
                     }
                 }
             }
