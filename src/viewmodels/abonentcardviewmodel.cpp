@@ -5,7 +5,10 @@
 
 AbonentCardViewModel::AbonentCardViewModel(DatabaseContacts* database, QObject* parent)
     : QObject(parent)
-    , m_database(database) {}
+    , m_database(database)
+{
+
+}
 
 const QString &AbonentCardViewModel::name() const
 {

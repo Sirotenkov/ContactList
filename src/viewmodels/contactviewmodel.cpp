@@ -25,7 +25,7 @@ void ContactViewModel::onDatabaseUpdated(qint64 userId)
     std::optional<DatabaseStruct> const databaseStruct = m_model->find(userId);
     if(!databaseStruct)
     {
-        qDebug() << "no such user found with id" << userId;
+        qDebug() << "No such user found with id" << userId;
         return;
     }
 
@@ -82,23 +82,22 @@ QVariant ContactViewModel::data(const QModelIndex &index, int role) const
     if (i < 0 || i >= m_contacts.size())
         return {};
 
-//    if (!index.isValid()) return QVariant();
+    if (!index.isValid()) return QVariant();
 
     auto const& contact = m_contacts.at(i);
 
     switch (role) {
         case UserId:
-//            return m_contacts.at(index.row()).userId;
-        return contact.userId;;
+            return contact.userId;
+
         case NameRole:
-//            return m_contacts.at(index.row()).name;
-        return contact.name;
+            return contact.name;
+
         case TelephoneNumberRole:
-//            return m_contacts.at(index.row()).telephoneNumber;
-        return contact.telephoneNumber;
+            return contact.telephoneNumber;
+
         case EmailAddressRole:
-//            return m_contacts.at(index.row()).emailAddress;
-        return contact.emailAddress;
+            return contact.emailAddress;
     }
     return QVariant();
 }
@@ -110,13 +109,8 @@ const QList<DatabaseStruct> &ContactViewModel::contacts() const
 
 void ContactViewModel::setContacts(const QList<DatabaseStruct> &newContacts)
 {
-//    if (m_contacts == newContacts)
-//        return;
-//    if (newContacts != m_contacts)
-//    {
         m_contacts = newContacts;
         emit contactsChanged();
-        //    }
 }
 
 void ContactViewModel::remove(qint64 userId)

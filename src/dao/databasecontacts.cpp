@@ -16,7 +16,6 @@ DatabaseContacts::DatabaseContacts(QObject *parent) : QObject(parent)
     }
 
     QDir const workDir = QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
-//    QDir().mkdir(workDir.path());
 
     m_database = QSqlDatabase::addDatabase(driverName);
     m_database.setDatabaseName(workDir.path() + QDir::separator() + "contacts.sqlite");
