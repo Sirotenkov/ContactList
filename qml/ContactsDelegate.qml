@@ -10,6 +10,7 @@ ListItem {
         rightMargin: Theme.horizontalPageMargin
         right: parent.right
     }
+    clip: true
 
     property string name
     property string telephoneNumber
